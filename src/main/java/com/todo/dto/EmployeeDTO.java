@@ -1,4 +1,4 @@
-package com.todo.dto;
+ package com.todo.dto;
 
 import lombok.*;
 
@@ -14,5 +14,21 @@ public class EmployeeDTO {
     private String address;
     private String mobile;
     private boolean activeState;
+    
+	public EmployeeDTO() {
+		
+	}
+
+	public EmployeeDTO(Long employeeId, String employeeName, String address, String mobile, boolean activeState) {
+		super();
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.address = address;
+		this.mobile = mobile;
+		this.activeState = activeState;
+	}
+    
+    
 }
+
 
