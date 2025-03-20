@@ -50,12 +50,21 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public EmployeeDTO updateEmployee(EmployeeUpdateDTO employeeUpdateDTO) {
-		 
-		return null;
+		Employee existingEmployee = employeeRepo.findById(employeeUpdateDTO.getEmployeeId())
+				.orElseThrow(()->new RuntimeException("Employee not found with ID"+employeeUpdateDTO.getEmployeeId()));
+		
+		existingEmployee.setEmployeename(employeeUpdateDTO.getEmployeeName());
+		existingEmployee.setAddress(employeeUpdateDTO.getAddress());
+		existingEmployee.setMobile(employeeUpdateDTO.getMobile());
+		existingEmployee.setActivestate(employeeUpdateDTO.isActiveState());
+		
+		Employee updatedEmployee = employeeRepo.save(existingEmployee);
+		return mapToDTO(updatedEmployee);
 	}
 
 	@Override
 	public void deleteEmployee(Long id) {
+		employeeRepo.deleteById(id);
 		
 		
 	}

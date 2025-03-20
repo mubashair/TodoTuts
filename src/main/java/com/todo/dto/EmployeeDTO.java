@@ -27,6 +27,46 @@ public class EmployeeDTO {
 		this.mobile = mobile;
 		this.activeState = activeState;
 	}
+
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public boolean isActiveState() {
+		return activeState;
+	}
+
+	public void setActiveState(boolean activeState) {
+		this.activeState = activeState;
+	}
     
     
 }

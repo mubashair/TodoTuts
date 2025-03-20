@@ -13,6 +13,43 @@ public class EmployeeUpdateDTO {
     private String address;
     private String mobile;
     private boolean activeState;
+    
+    //getters
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+	public String getEmployeeName() {
+		return employeeName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public boolean isActiveState() {
+		return activeState;
+	}
+	
+	
+	//setters
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public void setActiveState(boolean activeState) {
+		this.activeState = activeState;
+	}
+    
+    
 }
 /*📌 Why Include employeeId?
 
