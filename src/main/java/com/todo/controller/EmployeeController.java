@@ -2,6 +2,8 @@ package com.todo.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +26,8 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+	
 	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody EmployeeSaveDTO employeeSaveDTO){
 		 EmployeeDTO saveEmployee = employeeService.saveEmployee(employeeSaveDTO);
@@ -38,9 +42,10 @@ public class EmployeeController {
 	public List<EmployeeDTO> getAllEmployees() {
 		return employeeService.getAllEmployees();
 	}
-	@PutMapping
-	public EmployeeDTO updateEmployee(@RequestBody EmployeeUpdateDTO employeeUpdateDTO) {
-		return employeeService.updateEmployee(employeeUpdateDTO);
+	@PutMapping("/{id}")
+	public EmployeeDTO updateEmployee(@PathVariable Long id, @RequestBody EmployeeUpdateDTO employeeUpdateDTO) {
+		logger.info("Received request to update the employee with ID: {}", id);
+		return employeeService.updateEmployee(id, employeeUpdateDTO);
 	}
 	@DeleteMapping("/{id}")
 	public void deleteEmployee(@PathVariable Long id) {
