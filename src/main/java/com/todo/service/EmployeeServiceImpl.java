@@ -95,13 +95,23 @@ public class EmployeeServiceImpl implements EmployeeService{
 		// Convert the updated Employee entity to a DTO and return it
 		return mapToDTO(updatedEmployee);
 	}
-
+	@Transactional
 	@Override
 	public void deleteEmployee(Long id) {
+		logger.info("Deleting employee with ID: {}", id);
+		// Check if the Employee exists; if not, throw an exception
+		if(!employeeRepo.existsById(id)) {
+			throw new RuntimeException("Employee not found with ID:"+id);
+		}
+		 // Delete the employee record from the database
 		employeeRepo.deleteById(id);
 		
 		
 	}
+	/**
+     * Helper method to convert an Employee entity to an EmployeeDTO.
+     * This method takes an Employee entity and maps its fields to a new EmployeeDTO.
+     */
 	// Helper method to convert Entity to DTO
 	EmployeeDTO mapToDTO(Employee employee) {
 		return new EmployeeDTO(employee.getEmployeeid(), 
