@@ -18,7 +18,7 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "employee_id", length = 50, updatable = false, nullable = false)
-	private Long employeeid;
+	private Long employeeId;
 	@Column(name = "employee_name", length = 100, nullable = false)
 	private String employeeName;
 	@Column(name = "address", length = 255)
@@ -27,8 +27,10 @@ public class Employee {
 	private String mobile;
 	@Column(name = "active_state", nullable = false)
 	private boolean activestate;
-	
+	 // One Employee can have multiple Tasks
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+	//cascade = CascadeType.ALL – If an Employee is deleted, all related tasks are deleted.
+	//orphanRemoval = true – If a task is removed from the list, it will be deleted from the database.
 	private List<Task> tasks = new ArrayList<>(); // An employee can have multiple tasks
 
 	
@@ -38,7 +40,7 @@ public class Employee {
 	
 	public Employee(Long employeeid, String employeename, String address, String mobile, boolean activestate) {
 		super();
-		this.employeeid = employeeid;
+		this.employeeId = employeeid;
 		this.employeeName = employeename;
 		this.address = address;
 		this.mobile = mobile;
@@ -56,7 +58,7 @@ public class Employee {
 	}
 
 	public Long getEmployeeid() {
-		return employeeid;
+		return employeeId;
 	}
 	public String getEmployeename() {
 		return employeeName;
@@ -71,7 +73,7 @@ public class Employee {
 		return activestate;
 	}
 	public void setEmployeeid(Long employeeid) {
-		this.employeeid = employeeid;
+		this.employeeId = employeeid;
 	}
 	public void setEmployeename(String employeename) {
 		this.employeeName = employeename;
@@ -88,7 +90,7 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [employeeid=" + employeeid + ", employeename=" + employeeName + ", address=" + address
+		return "Employee [employeeid=" + employeeId + ", employeename=" + employeeName + ", address=" + address
 				+ ", mobile=" + mobile + ", activestate=" + activestate + "]";
 	}
 	
