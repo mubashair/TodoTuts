@@ -4,7 +4,7 @@ public class TaskDTO {
 	
 	//This DTO is used to return task details to the frontend or other clients. 
 	//It includes the employeeId but not the entire Employee object to keep it lightweight.
-	private Long id;
+	private Long taskId;
     private String title;
     private String description;
     private boolean completed;
@@ -12,8 +12,8 @@ public class TaskDTO {
     private Long employeeId; // Reference to Employee
     
     
-	public Long getId() {
-		return id;
+	public Long getTaskId() {
+		return taskId;
 	}
 	public String getTitle() {
 		return title;
@@ -27,8 +27,8 @@ public class TaskDTO {
 	public Long getEmployeeId() {
 		return employeeId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setTaskId(Long id) {
+		this.taskId = id;
 	}
 	public void setTitle(String title) {
 		this.title = title;
