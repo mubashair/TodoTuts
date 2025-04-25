@@ -2,6 +2,7 @@ package com.todo.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +52,12 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public TaskDTO getTaskById(Long id) {
-		
-		return null;
+		logger.info("Fetching task with id {}", id);
+		//Looks for the task. Throws an error if not found.
+		Task task = taskRepo.findById(id)
+		.orElseThrow(()->new RuntimeException("Task not found with ID:"+ id));
+		//Converts entity to DTO and returns it.
+		return mapToDTO(task);
 	}
 
 	@Override
@@ -60,11 +65,14 @@ public class TaskServiceImpl implements TaskService {
 		
 		return null;
 	}
-
+	 /**
+     * Get all tasks assigned to a specific employee.
+     */
 	@Override
 	public List<TaskDTO> getTasksByEmployeeId(Long employeeId) {
-		
-		return null;
+		logger.info("Fetching task for employee ID: {}", employeeId);
+		List<Task> tasks = taskRepo.findByEmployeeEmployeeId(employeeId);
+		return tasks.stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
 
 	@Override
