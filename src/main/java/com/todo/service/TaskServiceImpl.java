@@ -15,6 +15,8 @@ import com.todo.entity.Employee;
 import com.todo.entity.Task;
 import com.todo.repo.EmployeeRepo;
 import com.todo.repo.TaskRepo;
+
+import jakarta.transaction.Transactional;
 //This marks the class as a Spring service. It implements the TaskService interface.
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -62,8 +64,10 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<TaskDTO> getAllTasks() {
+		logger.info("Fetching all the tasks..");
+		List<Task> tasks = taskRepo.findAll();
 		
-		return null;
+		return tasks.stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
 	 /**
      * Get all tasks assigned to a specific employee.
@@ -74,16 +78,29 @@ public class TaskServiceImpl implements TaskService {
 		List<Task> tasks = taskRepo.findByEmployeeEmployeeId(employeeId);
 		return tasks.stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
-
+	/**
+     * Update task details.
+     */
+	@Transactional
 	@Override
 	public TaskDTO updateTask(Long id, TaskUpdateDTO taskUpdateDTO) {
-		
-		return null;
+		logger.info("Updating the task with ID:{}", id);
+		Task task = taskRepo.findById(id)
+				.orElseThrow(()->new RuntimeException("Task not found with id:"+id));
+		task.setTitle(taskUpdateDTO.getTitle());
+		task.setDescription(taskUpdateDTO.getDescription());
+		task.setCompleted(taskUpdateDTO.isCompleted());
+		Task updatedTask = taskRepo.save(task);
+		return mapToDTO(updatedTask);
 	}
 
 	@Override
 	public void deleteTask(Long id) {
-		
+		logger.info("Deleting task with ID: {}", id);
+		if(!taskRepo.existsById(id)) {
+			throw new RuntimeException("Task not found with ID:"+id);
+		}
+		taskRepo.deleteById(id);
 
 	}
 	/**
